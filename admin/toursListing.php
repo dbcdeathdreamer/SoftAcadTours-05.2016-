@@ -1,5 +1,12 @@
 <?php require_once 'common/header.php'?>
 <?php require_once 'common/sidebar.php'?>
+
+<?php
+if (!loggedIn()) {
+    header('Location: login.php');
+}
+?>
+
     <!-- start: Content -->
     <div id="content" class="span10">
     <ul class="breadcrumb">

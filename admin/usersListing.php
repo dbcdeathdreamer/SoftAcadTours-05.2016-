@@ -1,5 +1,12 @@
 <?php require_once 'common/header.php'?>
 <?php require_once 'common/sidebar.php'?>
+
+<?php
+if (!loggedIn()) {
+    header('Location: login.php');
+}
+?>
+
     <!-- start: Content -->
     <div id="content" class="span10">
         <ul class="breadcrumb">
@@ -33,6 +40,7 @@
                     <th>Username</th>
                     <th>Email</th>
                     <th>Description</th>
+                    <th>Actions</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -47,6 +55,10 @@
                         </td>
                         <td>
                             <?php echo $user['description']; ?>
+                        </td>
+                        <td>
+                            <a href="editUser.php?id=<?php echo $user['id'];?>">Edit</a> |
+                            <a href="deleteUser.php?id=<?php echo $user['id']; ?>">DELETE</a>
                         </td>
                     </tr>
                 <?php } ?>

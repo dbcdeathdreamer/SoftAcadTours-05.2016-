@@ -1,7 +1,42 @@
 <?php
 session_start();
 require_once('connection.php');
+require_once ('functions.php');
 ?>
+
+<?php
+
+$errors = array();
+if (isset($_POST['submit'])) {
+	if (strlen($_POST['username']) < 5 || strlen($_POST['username']) > 50) {
+		$errors['credential'] = 'Wrong credentials';
+	}
+
+	if (strlen($_POST['password']) < 5  || strlen($_POST['password']) > 50) {
+		$errors['credential'] = 'Wrong credentials';
+	}
+
+	if (empty($errors)) {
+		$user = getUserByUsername($_POST['username'], $connection);
+		if (!empty($user)) {
+			$user = $user[0];
+			if ($user['password'] == sha1($_POST['password'])) {
+				$_SESSION['logged_in'] = 1;
+				$_SESSION['user'] = $user;
+				header('Location:  index.php');
+			} else {
+				$errors[] = 'Wrong credentials';
+			}
+		} else {
+			$errors[] = 'Wrong credentials';
+		}
+	}
+
+}
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -60,7 +95,12 @@ require_once('connection.php');
 						<a href="#"><i class="halflings-icon cog"></i></a>
 					</div>
 					<h2>Login to your account</h2>
-					<form class="form-horizontal" action="index.php" method="post">
+					<?php
+					   foreach ($errors as $error) {
+						   echo $error."<br/>";
+					   }
+					?>
+					<form class="form-horizontal" action="" method="post">
 						<fieldset>
 							
 							<div class="input-prepend" title="Username">
@@ -77,8 +117,8 @@ require_once('connection.php');
 							
 							<label class="remember" for="remember"><input type="checkbox" id="remember" />Remember me</label>
 
-							<div class="button-login">	
-								<button type="submit" class="btn btn-primary">Login</button>
+							<div class="button-login">
+								<input type="submit" class="btn btn-primary" name="submit" value="Login" />
 							</div>
 							<div class="clearfix"></div>
 					</form>
