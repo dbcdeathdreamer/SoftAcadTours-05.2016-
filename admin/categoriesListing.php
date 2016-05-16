@@ -1,11 +1,19 @@
 <?php require_once 'common/header.php'?>
-<?php require_once 'common/sidebar.php'?>
-
 <?php
 if (!loggedIn()) {
     header('Location: login.php');
 }
 ?>
+
+
+<?php
+//Get all existing categories
+$categories = getAllCategories($connection);
+?>
+
+<?php require_once 'common/sidebar.php'?>
+
+
 
     <!-- start: Content -->
     <div id="content" class="span10">
@@ -33,18 +41,23 @@ if (!loggedIn()) {
                 </div>
             </div>
             <div class="box-content">
-                <a href="addUser.php" class="btn btn-large btn-success pull-right">Create new user</a>
+                <a href="addCategory.php" class="btn btn-large btn-success pull-right">Create Category</a>
                 <table class="table table-striped">
                     <thead>
-                    <tr>
-                        <th>Username</th>
-                        <th>Email</th>
-                        <th>Description</th>
-                    </tr>
+                        <tr>
+                            <th>Id</th>
+                            <th>Name</th>
+                            <th>Description</th>
+                        </tr>
                     </thead>
                     <tbody>
-
-
+                        <?php foreach($categories as $category) { ?>
+                            <tr>
+                                <td><?php echo $category['id']; ?></td>
+                                <td><?php echo $category['name']; ?></td>
+                                <td><?php echo $category['description']; ?></td>
+                            </tr>
+                        <?php } ?>
                     </tbody>
                 </table>
                 <div class="pagination pagination-centered">

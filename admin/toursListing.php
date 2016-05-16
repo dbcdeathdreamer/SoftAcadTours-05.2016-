@@ -1,11 +1,21 @@
 <?php require_once 'common/header.php'?>
-<?php require_once 'common/sidebar.php'?>
-
 <?php
 if (!loggedIn()) {
     header('Location: login.php');
 }
 ?>
+
+<?php
+    $tours = getAllTours($connection);
+
+
+
+?>
+
+
+<?php require_once 'common/sidebar.php'?>
+
+
 
     <!-- start: Content -->
     <div id="content" class="span10">
@@ -33,17 +43,33 @@ if (!loggedIn()) {
                 </div>
             </div>
             <div class="box-content">
-                <a href="addUser.php" class="btn btn-large btn-success pull-right">Create new user</a>
+                <a href="addTour.php" class="btn btn-large btn-success pull-right">Create Tour</a>
                 <table class="table table-striped">
                     <thead>
                     <tr>
-                        <th>Username</th>
-                        <th>Email</th>
+                        <th>Name</th>
                         <th>Description</th>
+                        <th>Image</th>
+                        <th>Category</th>
+                        <th>Actions</th>
                     </tr>
                     </thead>
                     <tbody>
+                        <?php foreach($tours as $tour) { ?>
+                            <tr>
+                                <td><?php echo $tour['name']; ?></td>
+                                <td><?php echo $tour['description']; ?></td>
+                                <td>
+                                    <img src="uploads/<?php echo $tour['image']; ?>" alt="" style="width:50px; height:80px;">
 
+                                </td>
+                                <td><?php echo $tour['category_name']; ?></td>
+                                <td>
+                                    <a href="editTour.php?id=<?php echo $tour['id'];?>">Edit</a> |
+                                    <a href="deleteTour.php?id=<?php echo $tour['id']; ?>">DELETE</a>
+                                </td>
+                            </tr>
+                        <?php }  ?>
 
                     </tbody>
                 </table>
