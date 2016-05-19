@@ -1,6 +1,15 @@
 <?php session_start(); ?>
 <?php require_once 'connection.php'; ?>
 <?php require_once 'functions.php'; ?>
+<?php //require_once 'system/DB.php'; ?>
+<?php
+function __autoload($className)
+{
+    $path = __DIR__.'/system/'.$className.'.php';
+    require_once $path;
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>

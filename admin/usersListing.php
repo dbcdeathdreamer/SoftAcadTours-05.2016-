@@ -19,7 +19,15 @@ if (!loggedIn()) {
         </ul>
 
         <?php
-        $users = getAllUsers($connection);
+
+        $db = new DB();
+//        $where = array(
+//            'id' => 2
+//        );
+       // $users = $db->get('users', $where);
+        $users = $db->get('users');
+
+        //$users = getAllUsers($connection);
         ?>
 
     <div class="row-fluid sortable">

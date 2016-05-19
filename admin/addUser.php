@@ -27,7 +27,10 @@ if (isset($_POST['submit'])) {
     }
 
     if (empty($errors)) {
-        insertUser($data, $connection);
+
+        $db = new DB();
+        $db->insert('users', $data);
+        //insertUser($data, $connection);
         header('Location: usersListing.php');
     }
 
