@@ -4,7 +4,7 @@ class DB
 {
     const DB_HOST     = '127.0.0.1';
     const DB_USERNAME = 'root';
-    const DB_PASSWORD = '';
+    const DB_PASSWORD = '33';
     const DB_NAME     = 'softacad';
 
     private $connection;
@@ -39,7 +39,7 @@ class DB
         while ($row = mysqli_fetch_assoc($result)) {
             $array[] = $row;
         }
-        mysqli_error($this->connection);
+        die(mysqli_error($this->connection));
         return $array;
     }
 

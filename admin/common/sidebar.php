@@ -7,6 +7,7 @@
             <li><a href="categoriesListing.php"><i class="icon-envelope"></i><span class="hidden-tablet"> Categories</span></a></li>
             <li><a href="toursListing.php"><i class="icon-tasks"></i><span class="hidden-tablet"> Tours</span></a></li>
             <li><a href="blogListing.php"><i class="icon-eye-open"></i><span class="hidden-tablet"> Blog</span></a></li>
+            <li><a href="clients.php"><i class="icon-eye-open"></i><span class="hidden-tablet"> Clients</span></a></li>
         </ul>
     </div>
 </div>
