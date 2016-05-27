@@ -49,7 +49,7 @@ if (isset($_POST['submit'])) {
         if ($imageSize > 100000) {
             $imageErrors['size'] = 'Image is too big!';
         }
-     }
+    }
 
     if (empty($errors) && empty($imageErrors)) {
         if (isset($_FILES['image'])) {

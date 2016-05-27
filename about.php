@@ -1,5 +1,12 @@
 <?php require_once 'header.php'; ?>
 
+<?php
+if (!loggedInClient()) {
+    header('Location: login.php');
+}
+
+?>
+
 <?php require_once 'nav.php'; ?>
 <!-- Header Carousel -->
 

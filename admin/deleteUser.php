@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once 'connection.php';
+require_once 'common/header.php';
 require_once 'functions.php';
 
 if (!loggedIn()) {
@@ -13,11 +13,13 @@ if (!isset($_GET['id'])) {
     header('Location: usersListing.php');
 }
 
-$user = getUserById($_GET['id'], $connection);
+$db = DB::getInstance();
+
+$user = $db->get('users', array('id' => $_GET['id']));
 
 if (empty($user)) {
     header('Location: usersListing.php');
 }
 
-deleteUser($_GET['id'], $connection);
+$db->delete('users', $_GET['id']);
 header('Location: usersListing.php');

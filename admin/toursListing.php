@@ -6,10 +6,11 @@ if (!loggedIn()) {
 ?>
 
 <?php
-    $tours = getAllTours($connection);
 
-
-
+    $db = DB::getInstance();
+    //$join = array();
+    //$tours = $db->get('tours',$fields,  array(), $join);
+    $tours = $db->get('tours');
 ?>
 
 
@@ -65,6 +66,7 @@ if (!loggedIn()) {
                                 </td>
                                 <td><?php echo $tour['category_name']; ?></td>
                                 <td>
+                                    <a href="tourImages.php?id=<?php echo $tour['id'];?>">Images</a>|
                                     <a href="editTour.php?id=<?php echo $tour['id'];?>">Edit</a> |
                                     <a href="deleteTour.php?id=<?php echo $tour['id']; ?>">DELETE</a>
                                 </td>

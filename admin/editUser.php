@@ -1,3 +1,4 @@
+
 <?php require_once 'common/header.php'?>
 <?php
 if (!loggedIn()) {
@@ -10,7 +11,9 @@ if (!isset($_GET['id'])) {
     header('Location: usersListing.php');
 }
 
-$user = getUserById($_GET['id'], $connection);
+$db = new DB();
+$where = array('id' => $_GET['id']);
+$user = $db->get('users', $where);
 
 if (empty($user)) {
     header('Location: usersListing.php');
@@ -41,7 +44,7 @@ if (isset($_POST['submit'])) {
     }
 
     if (empty($errors)) {
-        updateUser($_GET['id'], $data, $connection);
+        $db->update('users', $_GET['id'], $data);
         header('Location: usersListing.php');
     }
 

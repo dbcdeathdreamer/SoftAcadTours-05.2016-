@@ -9,7 +9,8 @@ if(!isset($_GET['id'])) {
     header('Location: clients.php');
 }
 
-$user = $db->get('clients', "id =".$_GET['id']);
+$db = DB::getInstance();
+$user = $db->get('clients', array("id" => $_GET['id']));
 if(is_null($user)) {
     header('Location: clients.php');
 }

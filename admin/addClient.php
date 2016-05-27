@@ -24,10 +24,11 @@ if(isset($_POST['createUser'])) {
         'email'    => (isset($_POST['email']))? $_POST['email'] : '',
     );
 
-    $errors = validateUserInput($insertInfo);
+    //$errors = validateUserInput($insertInfo);
 
     if (empty($errors)) {
-        $db->create('clients', $insertInfo);
+        $db = DB::getInstance();
+        $db->insert('clients', $insertInfo);
         $_SESSION['flashMessage'] = 'You have 1 new user';
         header('Location: clients.php');
     }

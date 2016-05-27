@@ -46,7 +46,7 @@ require_once('common/sidebar.php');
                     </thead>
                     <tbody>
                     <?php
-                    $db = new DB();
+                    $db = DB::getInstance();
                     $table = 'clients';
                     $users = $db->get($table);
                     foreach($users as $user): ?>

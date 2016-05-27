@@ -4,12 +4,15 @@ class DB
 {
     const DB_HOST     = '127.0.0.1';
     const DB_USERNAME = 'root';
-    const DB_PASSWORD = '33';
+    const DB_PASSWORD = '';
     const DB_NAME     = 'softacad';
 
+    private static $instance = null;
+    
+    
     private $connection;
 
-    public function __construct()
+    private function __construct()
     {
         $connection = mysqli_connect(
             self::DB_HOST,
@@ -17,8 +20,22 @@ class DB
             self::DB_PASSWORD,
             self::DB_NAME
         );
+        
+        if (!$connection) {
+            echo mysqli_connect_error(); die;
+        }
 
         $this->connection = $connection;
+    }
+
+    public static function getInstance()
+    {
+       if (self::$instance === null) {
+           $db = new DB();
+           self::$instance = $db;
+       }
+
+       return  self::$instance;
     }
 
 
@@ -29,17 +46,21 @@ class DB
         if (!empty($where)) {
             $sql.= " WHERE 1 ";
             foreach ($where as $key => $value) {
-                $sql.= " AND {$key} = '{$value}' ";
+                $sql.= " AND  {$key} = '{$value}' ";
             }
         }
 
         $result = mysqli_query($this->connection, $sql);
 
+        if (!$result) {
+            $this->error();
+        }
+
         $array = array();
         while ($row = mysqli_fetch_assoc($result)) {
             $array[] = $row;
         }
-        die(mysqli_error($this->connection));
+
         return $array;
     }
 
@@ -58,5 +79,37 @@ class DB
         }
 
         mysqli_query($this->connection, $sql);
+    }
+
+    public function update($table, $id, $data)
+    {
+        $sql = "UPDATE {$table} SET ";
+        $i = 0;
+        $count = count($data);
+        foreach ($data as $key => $value) {
+            ++$i;
+            if ($i == $count) {
+                $sql.= " {$key} = '{$value}'";
+            } else {
+                $sql.= " {$key} = '{$value}',";
+            }
+        }
+
+        $sql.= " WHERE id = '{$id}' ";
+
+        mysqli_query($this->connection, $sql);
+    }
+
+    public  function delete($table, $id)
+    {
+        $sql = "DELETE FROM {$table} WHERE id = '{$id}'";
+
+        mysqli_query($this->connection, $sql);
+    }
+
+
+    public function error()
+    {
+        echo mysqli_error($this->connection); die;
     }
 }

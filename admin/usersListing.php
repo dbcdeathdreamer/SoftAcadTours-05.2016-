@@ -1,11 +1,12 @@
 <?php require_once 'common/header.php'?>
-<?php require_once 'common/sidebar.php'?>
-
 <?php
 if (!loggedIn()) {
     header('Location: login.php');
 }
 ?>
+<?php require_once 'common/sidebar.php'?>
+
+
 
     <!-- start: Content -->
     <div id="content" class="span10">
@@ -20,7 +21,7 @@ if (!loggedIn()) {
 
         <?php
 
-        $db = new DB();
+        $db = DB::getInstance();
 //        $where = array(
 //            'id' => 2
 //        );
