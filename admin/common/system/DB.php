@@ -39,7 +39,7 @@ class DB
     }
 
 
-    public function get($table, $where = array())
+    public function get($table, $where = array(), $limit = -1, $offset = 0)
     {
         $sql = "SELECT * FROM {$table}";
 
@@ -49,6 +49,11 @@ class DB
                 $sql.= " AND  {$key} = '{$value}' ";
             }
         }
+
+        if($limit > -1 && $offset > 0) {
+            $sql .= " LIMIT {$limit} , {$offset} ";
+        }
+
 
         $result = mysqli_query($this->connection, $sql);
 

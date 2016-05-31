@@ -21,12 +21,12 @@ if (!loggedIn()) {
 
         <?php
 
-        $db = DB::getInstance();
+        $collection = new Collection();
 //        $where = array(
 //            'id' => 2
 //        );
        // $users = $db->get('users', $where);
-        $users = $db->get('users');
+        $users = $collection->get('users');
 
         //$users = getAllUsers($connection);
         ?>

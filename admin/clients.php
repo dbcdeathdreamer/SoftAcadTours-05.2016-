@@ -48,7 +48,25 @@ require_once('common/sidebar.php');
                     <?php
                     $db = DB::getInstance();
                     $table = 'clients';
-                    $users = $db->get($table);
+                    //В тази променлива пазим броя резултати които искаме да върне заявката
+                    $pageResults = 5;
+
+                    //В променливата $page присвояваме гет параметъра, който се придава. Ако няма гет параметър то тогава слагаме 1.
+                    $page = (isset($_GET['page']) && (int)$_GET['page'] > 0)? (int)$_GET['page'] : 1;
+
+                    //В тази променлива изчисляваме от кой точно резултат да започне броенето в заявката.
+                    $offset = ($page-1)*$pageResults;
+
+                    $users = $db->get($table, array(), $offset, $pageResults);
+                    $totalRows = count($db->get($table));
+
+                    $paginator = new Pagination();
+                    $paginator->setPerPage($pageResults);
+                    $paginator->setTotalRows($totalRows);
+                    $paginator->setBaseUrl('clients.php');
+
+
+
                     foreach($users as $user): ?>
                         <tr>
                             <td><?php echo $user['username']; ?></td>
@@ -66,18 +84,7 @@ require_once('common/sidebar.php');
                     <?php endforeach; ?>
                     </tbody>
                 </table>
-                <div class="pagination pagination-centered">
-                    <ul>
-                        <li><a href="#">Prev</a></li>
-                        <li class="active">
-                            <a href="#">1</a>
-                        </li>
-                        <li><a href="#">2</a></li>
-                        <li><a href="#">3</a></li>
-                        <li><a href="#">4</a></li>
-                        <li><a href="#">Next</a></li>
-                    </ul>
-                </div>
+                <?php echo $paginator->create(); ?>
             </div>
         </div><!--/span-->
     </div><!--/row-->
