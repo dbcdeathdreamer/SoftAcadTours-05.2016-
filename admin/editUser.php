@@ -11,19 +11,18 @@ if (!isset($_GET['id'])) {
     header('Location: usersListing.php');
 }
 
-$db = new DB();
-$where = array('id' => $_GET['id']);
-$user = $db->get('users', $where);
+$userCollection = new UsersCollection();
+$user = $userCollection->getOne($_GET['id']);
 
 if (empty($user)) {
     header('Location: usersListing.php');
 }
-$user = $user[0];
+
 $data = array(
-    'username' => $user['username'],
-    'email'    => $user['email'],
-    'description' => $user['description'],
-    
+    'id'    => $user->getId(),
+    'username' => $user->getUsername(),
+    'email'    => $user->getEmail(),
+    'description' => $user->getDescription(),
 );
 
 ?>
@@ -33,6 +32,7 @@ $errors = array();
 
 if (isset($_POST['submit'])) {
     $data = array(
+        'id'    => $_GET['id'],
         'username' => $_POST['username'],
         'email'    => $_POST['email'],
         'description' => $_POST['description'],
@@ -44,7 +44,12 @@ if (isset($_POST['submit'])) {
     }
 
     if (empty($errors)) {
-        $db->update('users', $_GET['id'], $data);
+        
+        $entity = new UserEntity();
+        $entity->init($data);
+
+        $userCollection->save($entity);
+
         header('Location: usersListing.php');
     }
 

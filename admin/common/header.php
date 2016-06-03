@@ -5,7 +5,18 @@
 <?php
 function __autoload($className)
 {
-    $path = __DIR__.'/system/'.$className.'.php';
+    //Zaredi papka entities ako e entity
+    //Zaredi papka collections ako e kolekciq
+    //Zaredi papka system ako ne e nito kolekciq nito entity
+
+    if (strpos($className, 'Collection') > 0) {
+        $path = __DIR__.'/../../common/models/collections/' . $className . '.php';
+    } elseif (strpos($className, 'Entity') > 0) {
+        $path = __DIR__.'/../../common/models/entities/' . $className . '.php';
+    } else {
+        $path = __DIR__.'/../../common/system/' . $className . '.php';
+    }
+
     require_once $path;
 }
 ?>

@@ -6,8 +6,6 @@ if (!loggedIn()) {
 ?>
 <?php require_once 'common/sidebar.php'?>
 
-
-
     <!-- start: Content -->
     <div id="content" class="span10">
         <ul class="breadcrumb">
@@ -21,12 +19,13 @@ if (!loggedIn()) {
 
         <?php
 
-        $collection = new Collection();
+        $usersCollection = new UsersCollection();
 //        $where = array(
 //            'id' => 2
 //        );
        // $users = $db->get('users', $where);
-        $users = $collection->get('users');
+        $users = $usersCollection->get();
+
 
         //$users = getAllUsers($connection);
         ?>
@@ -57,17 +56,17 @@ if (!loggedIn()) {
                 <?php foreach($users as $user) { ?>
                     <tr>
                         <td>
-                            <?php echo $user['username']; ?>
+                            <?php echo $user->getUsername(); ?>
                         </td>
                         <td>
-                            <?php echo $user['email']; ?>
+                            <?php echo $user->getEmail(); ?>
                         </td>
                         <td>
-                            <?php echo $user['description']; ?>
+                            <?php echo $user->getDescription(); ?>
                         </td>
                         <td>
-                            <a href="editUser.php?id=<?php echo $user['id'];?>">Edit</a> |
-                            <a href="deleteUser.php?id=<?php echo $user['id']; ?>">DELETE</a>
+                            <a href="editUser.php?id=<?php echo $user->getId();?>">Edit</a> |
+                            <a href="deleteUser.php?id=<?php echo $user->getId(); ?>">DELETE</a>
                         </td>
                     </tr>
                 <?php } ?>
