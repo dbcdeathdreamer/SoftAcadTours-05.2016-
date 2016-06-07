@@ -19,7 +19,8 @@ if (!loggedIn()) {
     </ul>
 
     <?php
-
+        $blogCollection = new BlogCollection();
+        $blogResults = $blogCollection->get();
     ?>
 
     <div class="row-fluid sortable">
@@ -37,14 +38,30 @@ if (!loggedIn()) {
                 <table class="table table-striped">
                     <thead>
                     <tr>
-                        <th>Username</th>
-                        <th>Email</th>
+                        <th>Name</th>
                         <th>Description</th>
+                        <th>Image</th>
+                        <th>Created Date</th>
+                        <th>Actions</th>
                     </tr>
                     </thead>
                     <tbody>
-
-
+                        <?php foreach($blogResults as $blogResult): ?>
+                            <tr>
+                                <td><?php echo $blogResult->getName(); ?></td>
+                                <td><?php echo $blogResult->getDescription(); ?></td>
+                                <td><img src="uploads/<?php echo $blogResult->getImage(); ?>" style="width:50px; height:80px;" alt=""></td>
+                                <td><?php echo $blogResult->getCreatedAt(); ?></td>
+                                <td class="center">
+                                    <a class="btn btn-info" href="editBlogPost.php?id=<?php echo $blogResult->getId(); ?>">
+                                        <i class="halflings-icon white edit"></i>
+                                    </a>
+                                    <a class="btn btn-danger" href="deleteBlogPost.php?id=<?php echo $blogResult->getId(); ?>">
+                                        <i class="halflings-icon white trash"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
                     </tbody>
                 </table>
                 <div class="pagination pagination-centered">

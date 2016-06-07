@@ -3,6 +3,24 @@
 if (!loggedIn()) {
     header('Location: login.php');
 }
+
+//$usersCollection = new UsersCollection();
+//$users = $usersCollection->get();
+//
+//$toursCollection = new ToursCollection();
+//$tours = $toursCollection->get();
+//
+//$categoriesCollection = new CategoriesCollection();
+//$categories = $categoriesCollection->get();
+//
+//
+//$blogCollection = new BlogCollection();
+//$blog = $blogCollection->get();
+//
+//$clientsCollection = new ClientsCollection();
+//$clients =  $clientsCollection->get();
+
+
 ?>
 <?php require_once 'common/sidebar.php'?>
 
@@ -25,9 +43,7 @@ if (!loggedIn()) {
 //        );
        // $users = $db->get('users', $where);
         $users = $usersCollection->get();
-
-
-        //$users = getAllUsers($connection);
+        
         ?>
 
     <div class="row-fluid sortable">

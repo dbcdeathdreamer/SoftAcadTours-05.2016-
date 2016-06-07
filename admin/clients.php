@@ -46,8 +46,7 @@ require_once('common/sidebar.php');
                     </thead>
                     <tbody>
                     <?php
-                    $db = DB::getInstance();
-                    $table = 'clients';
+
                     //В тази променлива пазим броя резултати които искаме да върне заявката
                     $pageResults = 5;
 
@@ -57,8 +56,10 @@ require_once('common/sidebar.php');
                     //В тази променлива изчисляваме от кой точно резултат да започне броенето в заявката.
                     $offset = ($page-1)*$pageResults;
 
-                    $users = $db->get($table, array(), $offset, $pageResults);
-                    $totalRows = count($db->get($table));
+                    $clientsCollection = new ClientsCollection();
+                    $clients = $clientsCollection->get(array(), $offset, $pageResults);
+
+                    $totalRows = count($clientsCollection->get());
 
                     $paginator = new Pagination();
                     $paginator->setPerPage($pageResults);
@@ -67,16 +68,15 @@ require_once('common/sidebar.php');
 
 
 
-                    foreach($users as $user): ?>
+                    foreach($clients as $client): ?>
                         <tr>
-                            <td><?php echo $user['username']; ?></td>
-                            <td class="center"><?php echo $user['email']; ?></td>
+                            <td><?php echo $client->getUsername(); ?></td>
+                            <td class="center"><?php echo $client->getEmail(); ?></td>
                             <td class="center">
-
-                                <a class="btn btn-info" href="editClient.php?id=<?php echo $user['id']; ?>">
+                                <a class="btn btn-info" href="editClient.php?id=<?php echo $client->getId(); ?>">
                                     <i class="halflings-icon white edit"></i>
                                 </a>
-                                <a class="btn btn-danger" href="deleteClient.php?id=<?php echo $user['id']; ?>">
+                                <a class="btn btn-danger" href="deleteClient.php?id=<?php echo $client->getId(); ?>">
                                     <i class="halflings-icon white trash"></i>
                                 </a>
                             </td>

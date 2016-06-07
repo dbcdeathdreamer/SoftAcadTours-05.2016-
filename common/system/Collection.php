@@ -1,7 +1,7 @@
 <?php
 
 abstract class Collection {
-    private $db = null;
+    protected $db = null;
     protected $table = 'table';
     protected $entity = 'entity';
 
@@ -52,7 +52,7 @@ abstract class Collection {
 
         $array = array();
         while ($row = $this->db->translate($result)) {
-            $entity = new UserEntity();
+            $entity = new $this->entity();
             $entity->init($row);
 
             $array[] = $entity;

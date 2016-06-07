@@ -8,7 +8,8 @@ if (!loggedIn()) {
 
 <?php
 //Get all existing categories
-$categories = getAllCategories($connection);
+$categoriesCollection = new CategoriesCollection();
+$categories = $categoriesCollection->get();
 ?>
 
 <?php require_once 'common/sidebar.php'?>
@@ -48,14 +49,23 @@ $categories = getAllCategories($connection);
                             <th>Id</th>
                             <th>Name</th>
                             <th>Description</th>
+                            <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php foreach($categories as $category) { ?>
                             <tr>
-                                <td><?php echo $category['id']; ?></td>
-                                <td><?php echo $category['name']; ?></td>
-                                <td><?php echo $category['description']; ?></td>
+                                <td><?php echo $category->getId(); ?></td>
+                                <td><?php echo $category->getName(); ?></td>
+                                <td><?php echo $category->getDescription(); ?></td>
+                                <td class="center">
+                                    <a class="btn btn-info" href="editCategory.php?id=<?php echo $category->getId(); ?>">
+                                        <i class="halflings-icon white edit"></i>
+                                    </a>
+                                    <a class="btn btn-danger" href="deleteCategory.php?id=<?php echo $category->getId(); ?>">
+                                        <i class="halflings-icon white trash"></i>
+                                    </a>
+                                </td>
                             </tr>
                         <?php } ?>
                     </tbody>
