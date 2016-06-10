@@ -1,11 +1,30 @@
-<?php require_once 'common/header.php'?>
-<?php require_once 'common/sidebar.php'?>
 
+<?php require_once '/../../../../admin/common/header.php'?>
 <?php
-if (!loggedIn()) {
+if (!$this->loggedIn()) {
     header('Location: login.php');
 }
+
+//$usersCollection = new UsersCollection();
+//$users = $usersCollection->get();
+//
+//$toursCollection = new ToursCollection();
+//$tours = $toursCollection->get();
+//
+//$categoriesCollection = new CategoriesCollection();
+//$categories = $categoriesCollection->get();
+//
+//
+//$blogCollection = new BlogCollection();
+//$blog = $blogCollection->get();
+//
+//$clientsCollection = new ClientsCollection();
+//$clients =  $clientsCollection->get();
+
+
 ?>
+<?php require_once '/../../../../admin/common/sidebar.php'?>
+
 
     <!-- start: Content -->
     <div id="content" class="span10">
@@ -17,11 +36,6 @@ if (!loggedIn()) {
         </li>
         <li><a href="#">Dashboard</a></li>
     </ul>
-
-    <?php
-        $blogCollection = new BlogCollection();
-        $blogResults = $blogCollection->get();
-    ?>
 
     <div class="row-fluid sortable">
         <div class="box span12">
@@ -38,30 +52,32 @@ if (!loggedIn()) {
                 <table class="table table-striped">
                     <thead>
                     <tr>
-                        <th>Name</th>
+                        <th>Username</th>
+                        <th>Email</th>
                         <th>Description</th>
-                        <th>Image</th>
-                        <th>Created Date</th>
                         <th>Actions</th>
                     </tr>
                     </thead>
                     <tbody>
-                        <?php foreach($blogResults as $blogResult): ?>
-                            <tr>
-                                <td><?php echo $blogResult->getName(); ?></td>
-                                <td><?php echo $blogResult->getDescription(); ?></td>
-                                <td><img src="uploads/<?php echo $blogResult->getImage(); ?>" style="width:50px; height:80px;" alt=""></td>
-                                <td><?php echo $blogResult->getCreatedAt(); ?></td>
-                                <td class="center">
-                                    <a class="btn btn-info" href="editBlogPost.php?id=<?php echo $blogResult->getId(); ?>">
-                                        <i class="halflings-icon white edit"></i>
-                                    </a>
-                                    <a class="btn btn-danger" href="deleteBlog.php?id=<?php echo $blogResult->getId(); ?>">
-                                        <i class="halflings-icon white trash"></i>
-                                    </a>
-                                </td>
-                            </tr>
-                        <?php endforeach; ?>
+
+                    <?php foreach($users as $user) { ?>
+                        <tr>
+                            <td>
+                                <?php echo $user->getUsername(); ?>
+                            </td>
+                            <td>
+                                <?php echo $user->getEmail(); ?>
+                            </td>
+                            <td>
+                                <?php echo $user->getDescription(); ?>
+                            </td>
+                            <td>
+                                <a href="editUser.php?id=<?php echo $user->getId();?>">Edit</a> |
+                                <a href="deleteUser.php?id=<?php echo $user->getId(); ?>">DELETE</a>
+                            </td>
+                        </tr>
+                    <?php } ?>
+
                     </tbody>
                 </table>
                 <div class="pagination pagination-centered">
@@ -82,4 +98,4 @@ if (!loggedIn()) {
 
     </div><!--/.fluid-container-->
 
-<?php require_once 'common/footer.php'?>
+<?php require_once '/../../../../admin/common/footer.php'?>

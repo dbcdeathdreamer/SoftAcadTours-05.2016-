@@ -3,20 +3,21 @@ require_once('common/header.php');
 
 if (!loggedIn()) {
     header('Location: login.php');
+   die;
 }
 
 if(!isset($_GET['id'])) {
     header('Location: clients.php');
+    exit(0);
 }
 
-$db = DB::getInstance();
-$client = $db->get('clients', "id =".$_GET['id']);
+$clientsCollection = new ClientsCollection();
+$client = $clientsCollection->getOne($_GET['id']);
 
-if(is_null($client[0])) {
+if(is_null($client->getId())) {
     header('Location: clients.php');
+    exit(0);
 }
 
-$db->delete('clients', $client[0]['id']);
+$clientsCollection->delete($client->getId());
 header('Location: clients.php');
-
-?>

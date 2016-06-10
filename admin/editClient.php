@@ -53,7 +53,7 @@ require_once('common/sidebar.php');
         <ul class="breadcrumb">
             <li>
                 <i class="icon-home"></i>
-                <a href="index.php">Home</a>
+                <a href="dashboard.php">Home</a>
                 <i class="icon-angle-right"></i>
             </li>
             <li><a href="#">Dashboard</a></li>

@@ -1,27 +1,20 @@
 <?php
-session_start();
-require_once 'connection.php';
-require_once 'functions.php';
+require_once('common/header.php');
 
 if (!loggedIn()) {
     header('Location: login.php');
 }
-?>
 
-<?php
-if (!isset($_GET['id'])) {
+if(!isset($_GET['id'])) {
     header('Location: toursListing.php');
 }
 
-$tour = getTourById($_GET['id'], $connection);
+$toursCollection = new ToursCollection();
+$tour = $toursCollection->getOne($_GET['id']);
 
-if (empty($tour)) {
+if(is_null($tour->getId())) {
     header('Location: toursListing.php');
 }
 
-
-unlink('uploads/'.$tour[0]['image']);
-deleteTour($_GET['id'], $connection);
-
-
+$toursCollection->delete($tour->getId());
 header('Location: toursListing.php');

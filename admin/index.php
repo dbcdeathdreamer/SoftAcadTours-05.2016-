@@ -1,69 +1,35 @@
-<?php require_once 'common/header.php'?>
 <?php
-if (!loggedIn()) {
-	header('Location: login.php');
+session_start();
+
+function __autoload($className)
+{
+    //Zaredi papka entities ako e entity
+    //Zaredi papka collections ako e kolekciq
+    //Zaredi papka system ako ne e nito kolekciq nito entity
+
+    if (strpos($className, 'Collection') > 0) {
+        $path = __DIR__.'/../common/models/collections/' . $className . '.php';
+    } elseif (strpos($className, 'Entity') > 0) {
+        $path = __DIR__.'/../common/models/entities/' . $className . '.php';
+    } elseif (strpos($className, 'Controller') > 0) {
+        $path = __DIR__.'/../common/controllers/admin/' . $className . '.php';
+    } else {
+        $path = __DIR__.'/../common/system/' . $className . '.php';
+    }
+
+    require_once $path;
 }
-?>
-<?php require_once 'common/sidebar.php'?>
+    
+    $controller = (isset($_GET['c'])) ? $_GET['c'] : 'dashboard';
+    $method     = (isset($_GET['m'])) ? $_GET['m'] : 'index';
 
+    $controllerName = ucfirst($controller).'Controller';
+    $controller = new $controllerName();
 
+    $controller->$method();
 
-	<!-- start: Content -->
-	<div id="content" class="span10">
-			<ul class="breadcrumb">
-				<li>
-					<i class="icon-home"></i>
-					<a href="index.html">Home</a> 
-					<i class="icon-angle-right"></i>
-				</li>
-				<li><a href="#">Dashboard</a></li>
-			</ul>
-		
-		<!-- start: Content -->
+    var_dump($controller, $method); die;
+    
+    
+    
 
-			<div class="row-fluid">
-
-				<div class="span3 statbox purple" onTablet="span6" onDesktop="span3">
-					<div class="boxchart">5,6,7,2,0,4,2,4,8,2,3,3,2</div>
-					<div class="number">854<i class="icon-arrow-up"></i></div>
-					<div class="title">visits</div>
-					<div class="footer">
-						<a href="#"> read full report</a>
-					</div>
-				</div>
-				<div class="span3 statbox green" onTablet="span6" onDesktop="span3">
-					<div class="boxchart">1,2,6,4,0,8,2,4,5,3,1,7,5</div>
-					<div class="number">123<i class="icon-arrow-up"></i></div>
-					<div class="title">sales</div>
-					<div class="footer">
-						<a href="#"> read full report</a>
-					</div>
-				</div>
-				<div class="span3 statbox blue noMargin" onTablet="span6" onDesktop="span3">
-					<div class="boxchart">5,6,7,2,0,-4,-2,4,8,2,3,3,2</div>
-					<div class="number">982<i class="icon-arrow-up"></i></div>
-					<div class="title">orders</div>
-					<div class="footer">
-						<a href="#"> read full report</a>
-					</div>
-				</div>
-				<div class="span3 statbox yellow" onTablet="span6" onDesktop="span3">
-					<div class="boxchart">7,2,2,2,1,-4,-2,4,8,,0,3,3,5</div>
-					<div class="number">678<i class="icon-arrow-down"></i></div>
-					<div class="title">visits</div>
-					<div class="footer">
-						<a href="#"> read full report</a>
-					</div>
-				</div>
-
-			</div>
-
-
-		</div><!--/.fluid-container-->
-
-		<!-- end: Content -->
-
-
-
-
-<?php require_once 'common/footer.php'?>

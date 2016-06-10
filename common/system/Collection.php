@@ -21,7 +21,7 @@ abstract class Collection {
             $this->db->error();
         }
         
-        $entity = new UserEntity();
+        $entity = new $this->entity();
         $entity->init($this->db->translate($result));
 
         return $entity;

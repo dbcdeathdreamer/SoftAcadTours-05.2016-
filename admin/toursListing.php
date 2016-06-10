@@ -67,7 +67,7 @@ if (!loggedIn()) {
     $paginator = new Pagination();
     $paginator->setPerPage($pageResults);
     $paginator->setTotalRows($totalRows);
-    $paginator->setBaseUrl('toursListing.php');
+    $paginator->setBaseUrl("toursListing.php?perPage={$pageResults}&orderBy={$orderBy}&search={$search}");
 
 ?>
 

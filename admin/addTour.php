@@ -6,7 +6,9 @@ if (!loggedIn()) {
 ?>
 
 <?php
-$categories = getAllCategories($connection);
+$categoriesCollection = new CategoriesCollection();
+$categories = $categoriesCollection->get();
+
 
 $errors = array();
 $data = array(
@@ -56,7 +58,11 @@ if (isset($_POST['submit'])) {
             $data['image'] = $imageName;
         }
 
-        insertTour($connection, $data);
+        $toursCollection = new ToursCollection();
+        $entity = new TourEntity();
+        $entity->init($data);
+        $toursCollection->save($entity);
+
 
         if (isset($_FILES['image'])) {
             move_uploaded_file($imagePath, 'uploads/' . $imageName);
@@ -92,8 +98,8 @@ if (isset($_POST['submit'])) {
                 <div class="controls ">
                     <select name="category" id="category">
                         <?php foreach($categories as $category) { ?>
-                            <option value="<?php echo  $category['id']; ?>">
-                                <?php echo $category['name']; ?>
+                            <option value="<?php echo  $category->getId(); ?>">
+                                <?php echo $category->getName(); ?>
                             </option>
                         <?php } ?>
                     </select>

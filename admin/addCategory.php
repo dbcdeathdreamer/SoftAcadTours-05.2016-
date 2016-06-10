@@ -25,7 +25,12 @@ if (isset($_POST['submit'])) {
     );
 
     if (empty($errors)) {
-        insertCategory($connection, $data);
+        $categoriesCollection = new CategoriesCollection();
+        $entity = new CategoryEntity();
+        $entity->init($data);
+
+        $categoriesCollection->save($entity);
+
         header('Location: categoriesListing.php');
     }
     

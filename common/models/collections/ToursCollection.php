@@ -52,6 +52,17 @@ class ToursCollection extends Collection
 
     public function save(Entity $entity)
     {
-        // TODO: Implement save() method.
+        $data = array(
+            'name' =>$entity->getName(),
+            'description' => $entity->getDescription(),
+            'image'      => $entity->getImage(),
+            'category_id' => $entity->getCategoryId(),
+        );
+        
+        if ($entity->getId() != null) {
+            $this->update($entity->getId(), $data);
+        } else {
+            $this->insert($data);
+        }
     }
 }

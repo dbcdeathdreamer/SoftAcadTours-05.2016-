@@ -27,8 +27,12 @@ if(isset($_POST['createUser'])) {
     //$errors = validateUserInput($insertInfo);
 
     if (empty($errors)) {
-        $db = DB::getInstance();
-        $db->insert('clients', $insertInfo);
+
+        $clientsCollection = new ClientsCollection();
+        $entity = new ClientEntity();
+        $entity->init($insertInfo);
+        $clientsCollection->save($entity);
+
         $_SESSION['flashMessage'] = 'You have 1 new user';
         header('Location: clients.php');
     }
@@ -43,7 +47,7 @@ if(isset($_POST['createUser'])) {
         <ul class="breadcrumb">
             <li>
                 <i class="icon-home"></i>
-                <a href="index.php">Home</a>
+                <a href="dashboard.php">Home</a>
                 <i class="icon-angle-right"></i>
             </li>
             <li><a href="#">Dashboard</a></li>
