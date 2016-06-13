@@ -6,7 +6,7 @@ abstract class Controller {
         echo 'IMPLEMENT INDEX METHOD IN YOUR CONTROLLER PLEASE !!!!!!!';
     }
     
-    public function loadView($viewName, $data)
+    public function loadView($viewName, $data= array())
     {
        extract($data);
         require_once __DIR__.'/../views/admin/'.$viewName;

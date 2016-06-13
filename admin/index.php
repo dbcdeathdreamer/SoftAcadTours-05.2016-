@@ -16,19 +16,29 @@ function __autoload($className)
     } else {
         $path = __DIR__.'/../common/system/' . $className . '.php';
     }
+    if(is_file($path)&&!class_exists($path)) {
+        require_once $path;
+    }
 
-    require_once $path;
 }
     
     $controller = (isset($_GET['c'])) ? $_GET['c'] : 'dashboard';
     $method     = (isset($_GET['m'])) ? $_GET['m'] : 'index';
 
     $controllerName = ucfirst($controller).'Controller';
-    $controller = new $controllerName();
 
-    $controller->$method();
+    if (class_exists($controllerName)) {
+        $controller = new $controllerName();
 
-    var_dump($controller, $method); die;
+        $controller->$method();
+    } else {
+        echo 'Controller with this name not exist!';
+    }
+
+
+
+
+
     
     
     
