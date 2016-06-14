@@ -1,9 +1,7 @@
 
 <?php require_once '/../../../../admin/common/header.php'?>
 <?php
-if (!$this->loggedIn()) {
-    header('Location: login.php');
-}
+
 
 //$usersCollection = new UsersCollection();
 //$users = $usersCollection->get();
@@ -37,6 +35,24 @@ if (!$this->loggedIn()) {
         <li><a href="#">Dashboard</a></li>
     </ul>
 
+        <?php if (isset($_SESSION['message'])): ?>
+            <?php if (isset($_SESSION['message']['success'])): ?>
+                <div class="alert alert-success">
+                    <button type="button" class="close" data-dismiss="alert">×</button>
+                    <strong>Well done!</strong> <?php echo $_SESSION['message']['success']; ?>
+                </div>
+                <?php unset($_SESSION['message']['success']); ?>
+            <?php endif; ?>
+            <?php if (isset($_SESSION['message']['warning'])): ?>
+                <div class="alert alert-error">
+                    <button type="button" class="close" data-dismiss="alert">×</button>
+                    <strong>Warning!</strong> <?php echo $_SESSION['message']['warning'];?>
+                </div>
+                <?php unset($_SESSION['message']['warning']); ?>
+            <?php endif; ?>
+        <?php endif; ?>
+
+
     <div class="row-fluid sortable">
         <div class="box span12">
             <div class="box-header">
@@ -48,7 +64,7 @@ if (!$this->loggedIn()) {
                 </div>
             </div>
             <div class="box-content">
-                <a href="addUser.php" class="btn btn-large btn-success pull-right">Create new user</a>
+                <a href="index.php?c=users&m=insert" class="btn btn-large btn-success pull-right">Create new user</a>
                 <table class="table table-striped">
                     <thead>
                     <tr>
@@ -72,26 +88,15 @@ if (!$this->loggedIn()) {
                                 <?php echo $user->getDescription(); ?>
                             </td>
                             <td>
-                                <a href="editUser.php?id=<?php echo $user->getId();?>">Edit</a> |
-                                <a href="deleteUser.php?id=<?php echo $user->getId(); ?>">DELETE</a>
+                                <a href="index.php?c=users&m=update&id=<?php echo $user->getId();?>">Edit</a> |
+                                <a href="index.php?c=users&m=delete&id=<?php echo $user->getId(); ?>">DELETE</a>
                             </td>
                         </tr>
                     <?php } ?>
 
                     </tbody>
                 </table>
-                <div class="pagination pagination-centered">
-                    <ul>
-                        <li><a href="#">Prev</a></li>
-                        <li class="active">
-                            <a href="#">1</a>
-                        </li>
-                        <li><a href="#">2</a></li>
-                        <li><a href="#">3</a></li>
-                        <li><a href="#">4</a></li>
-                        <li><a href="#">Next</a></li>
-                    </ul>
-                </div>
+                <?php echo $paginator->create(); ?>
             </div>
         </div>
 

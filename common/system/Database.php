@@ -55,6 +55,6 @@ class Database
     }
     
     public function error() {
-        die(mysqli_error($this->connection));
+        var_dump(mysqli_error($this->connection)); die;
     }
 }

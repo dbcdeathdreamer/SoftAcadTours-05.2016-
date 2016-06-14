@@ -1,6 +1,14 @@
 <?php
 
 abstract class Controller {
+    
+    public function __construct()
+    {
+        if (!$this->loggedIn()) {
+            header('Location: login.php');
+        }
+    }
+
 
     public function index() {
         echo 'IMPLEMENT INDEX METHOD IN YOUR CONTROLLER PLEASE !!!!!!!';

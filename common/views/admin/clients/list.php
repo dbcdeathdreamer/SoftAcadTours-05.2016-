@@ -1,9 +1,6 @@
 <?php
-require_once('common/header.php');
-if (!loggedIn()) {
-    header('Location: login.php');
-}
-require_once('common/sidebar.php');
+require_once(__DIR__.'/../../../../admin/common/header.php');
+require_once(__DIR__.'/../../../../admin/common/sidebar.php');
 ?>
 <!-- start: Content -->
 <div id="content" class="span10">
@@ -46,28 +43,6 @@ require_once('common/sidebar.php');
                     </thead>
                     <tbody>
                     <?php
-
-                    //В тази променлива пазим броя резултати които искаме да върне заявката
-                    $pageResults = 5;
-
-                    //В променливата $page присвояваме гет параметъра, който се придава. Ако няма гет параметър то тогава слагаме 1.
-                    $page = (isset($_GET['page']) && (int)$_GET['page'] > 0)? (int)$_GET['page'] : 1;
-
-                    //В тази променлива изчисляваме от кой точно резултат да започне броенето в заявката.
-                    $offset = ($page-1)*$pageResults;
-
-                    $clientsCollection = new ClientsCollection();
-                    $clients = $clientsCollection->get(array(), $offset, $pageResults);
-
-                    $totalRows = count($clientsCollection->get());
-
-                    $paginator = new Pagination();
-                    $paginator->setPerPage($pageResults);
-                    $paginator->setTotalRows($totalRows);
-                    $paginator->setBaseUrl('clients.php');
-
-
-
                     foreach($clients as $client): ?>
                         <tr>
                             <td><?php echo $client->getUsername(); ?></td>
@@ -93,4 +68,4 @@ require_once('common/sidebar.php');
 
 
 </div><!--/.fluid-container-->
-<?php require_once('common/footer.php'); ?>
+<?php require_once(__DIR__.'/../../../../admin/common/footer.php'); ?>
