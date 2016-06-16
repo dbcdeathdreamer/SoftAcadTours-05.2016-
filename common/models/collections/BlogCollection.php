@@ -25,4 +25,24 @@ class BlogCollection extends Collection
 
     }
 
+    public function getLast3Posts()
+    {
+        $sql = "SELECT * FROM {$this->table} Order by id DESC LIMIT 3";
+        $result = $this->db->query($sql);
+
+        if (is_null(mysqli_num_rows($result))) {
+            $this->db->error();
+        }
+
+        $array = array();
+        while ($row = $this->db->translate($result)) {
+            $entity = new $this->entity();
+            $entity->init($row);
+
+            $array[] = $entity;
+        }
+
+        return $array;
+    }
+
 }

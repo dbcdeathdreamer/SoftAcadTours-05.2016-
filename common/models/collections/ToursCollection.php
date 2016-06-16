@@ -67,4 +67,27 @@ class ToursCollection extends Collection
             $this->insert($data);
         }
     }
+
+
+    public function getRandomTours($limit = 6)
+    {
+        $sql = "SELECT * FROM {$this->table} Order by RAND() LIMIT {$limit}";
+        $result = $this->db->query($sql);
+
+        if (is_null(mysqli_num_rows($result))) {
+            $this->db->error();
+        }
+
+        $array = array();
+        while ($row = $this->db->translate($result)) {
+            $entity = new $this->entity();
+            $entity->init($row);
+
+            $array[] = $entity;
+        }
+
+        return $array;
+    }
+
+
 }

@@ -18,6 +18,14 @@ abstract class Controller {
         require_once __DIR__.'/../views/admin/'.$viewName;
     }
 
+    public function getNavigationParams()
+    {
+        $categoriesCollection = new CategoriesCollection();
+        $categories = $categoriesCollection->get();
+
+        return $categories;
+    }
+
     public function loadFrontView($viewName, $data= array())
     {
         extract($data);
