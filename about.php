@@ -21,7 +21,7 @@ if (!loggedInClient()) {
                     <small>Subheading</small>
                 </h1>
                 <ol class="breadcrumb">
-                    <li><a href="index.php">Home</a>
+                    <li><a href="common/views/frontend/home.php">Home</a>
                     </li>
                     <li class="active">About</li>
                 </ol>

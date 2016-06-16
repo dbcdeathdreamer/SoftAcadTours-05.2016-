@@ -61,7 +61,8 @@
                             <i class="halflings-icon white user"></i>
                             <?php
                             if (isset($_SESSION['user'])) {
-                                echo $_SESSION['user']['username'];
+
+                                echo $_SESSION['user']->getUsername();
                             }
                             ?>
                             <span class="caret"></span>
@@ -71,7 +72,7 @@
                                 <span>Account Settings</span>
                             </li>
                             <li><a href="#"><i class="halflings-icon user"></i> Profile</a></li>
-                            <li><a href="logout.php"><i class="halflings-icon off"></i> Logout</a></li>
+                            <li><a href="index.php?c=login&m=logout"><i class="halflings-icon off"></i> Logout</a></li>
                         </ul>
                     </li>
                     <!-- end: User Dropdown -->

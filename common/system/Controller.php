@@ -4,12 +4,10 @@ abstract class Controller {
     
     public function __construct()
     {
-        if (!$this->loggedIn()) {
-            header('Location: login.php');
-        }
+
     }
-
-
+    
+    
     public function index() {
         echo 'IMPLEMENT INDEX METHOD IN YOUR CONTROLLER PLEASE !!!!!!!';
     }
@@ -18,6 +16,12 @@ abstract class Controller {
     {
        extract($data);
         require_once __DIR__.'/../views/admin/'.$viewName;
+    }
+
+    public function loadFrontView($viewName, $data= array())
+    {
+        extract($data);
+        require_once __DIR__.'/../views/frontend/'.$viewName;
     }
 
     public function loggedIn(){

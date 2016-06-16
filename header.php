@@ -1,11 +1,3 @@
-<?php
-
-session_start();
-require "admin/common/system/DB.php";
-require "functions.php";
-
-
-?>
 <!DOCTYPE html>
 <html lang="en">
 
