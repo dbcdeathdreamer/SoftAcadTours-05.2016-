@@ -24,7 +24,7 @@
                 </div>
             </div>
             <div class="box-content">
-                <a href="addCategory.php" class="btn btn-large btn-success pull-right">Create Category</a>
+                <a href="index.php?c=categories&m=insert" class="btn btn-large btn-success pull-right">Create Category</a>
                 <table class="table table-striped">
                     <thead>
                     <tr>
@@ -41,10 +41,10 @@
                             <td><?php echo $category->getName(); ?></td>
                             <td><?php echo $category->getDescription(); ?></td>
                             <td class="center">
-                                <a class="btn btn-info" href="editCategory.php?id=<?php echo $category->getId(); ?>">
+                                <a class="btn btn-info" href="index.php?c=categories&m=update&id=<?php echo $category->getId(); ?>">
                                     <i class="halflings-icon white edit"></i>
                                 </a>
-                                <a class="btn btn-danger" href="deleteCategory.php?id=<?php echo $category->getId(); ?>">
+                                <a class="btn btn-danger" href="index.php?c=categories&m=delete&id=<?php echo $category->getId(); ?>">
                                     <i class="halflings-icon white trash"></i>
                                 </a>
                             </td>

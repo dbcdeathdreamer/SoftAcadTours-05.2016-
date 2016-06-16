@@ -5,7 +5,7 @@ class ToursCollection extends Collection
     protected $table = 'tours';
     protected $entity = 'TourEntity';
 
-    public function get($where = array(), $limit = -1, $offset = 0, $like, $orderBy = array())
+    public function get($where = array(), $limit = -1, $offset = 0, $like = '', $orderBy = array())
     {
         $sql = "
             SELECT
@@ -20,7 +20,10 @@ class ToursCollection extends Collection
             }
         }
 
-        $sql .= " AND t.name LIKE '%{$like}%' ";
+        if ($like != '') {
+            $sql .= " AND t.name LIKE '%{$like}%' ";
+        }
+       
 
         if (!empty($orderBy)) {
             $sql .= " ORDER BY {$orderBy[0]} {$orderBy[1]}  ";
@@ -48,7 +51,6 @@ class ToursCollection extends Collection
 
         return $array;
     }
-
 
     public function save(Entity $entity)
     {

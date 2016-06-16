@@ -32,7 +32,7 @@ require_once(__DIR__.'/../../../../admin/common/sidebar.php');
                 }
                 ?>
 
-                <a href="addClient.php" class="btn btn-large btn-success pull-right">Create new client</a>
+                <a href="index.php?c=clients&m=insert" class="btn btn-large btn-success pull-right">Create new client</a>
                 <table class="table table-striped">
                     <thead>
                     <tr>
@@ -48,10 +48,10 @@ require_once(__DIR__.'/../../../../admin/common/sidebar.php');
                             <td><?php echo $client->getUsername(); ?></td>
                             <td class="center"><?php echo $client->getEmail(); ?></td>
                             <td class="center">
-                                <a class="btn btn-info" href="editClient.php?id=<?php echo $client->getId(); ?>">
+                                <a class="btn btn-info" href="index.php?c=clients&m=update&id=<?php echo $client->getId(); ?>">
                                     <i class="halflings-icon white edit"></i>
                                 </a>
-                                <a class="btn btn-danger" href="deleteClient.php?id=<?php echo $client->getId(); ?>">
+                                <a class="btn btn-danger" href="index.php?c=clients&m=delete&id=<?php echo $client->getId(); ?>">
                                     <i class="halflings-icon white trash"></i>
                                 </a>
                             </td>

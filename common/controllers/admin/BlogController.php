@@ -53,6 +53,22 @@ class BlogController extends Controller
 
     public function delete()
     {
+        if(!isset($_GET['id'])) {
+            header('Location: index.php?c=blog');
+            die;
+        }
+        
+        $blogCollection = new BlogCollection();
+        $blog = $blogCollection->getOne($_GET['id']);
+        
+        if(is_null($blog->getId())) {
+            header('Location: index.php?c=blog');
+            die;
+        }
+        
+        $blogCollection->delete($blog->getId());
+        header('Location: index.php?c=blog');
+        die;
 
     }
 }

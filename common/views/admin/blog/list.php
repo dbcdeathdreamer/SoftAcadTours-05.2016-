@@ -23,7 +23,7 @@
                 </div>
             </div>
             <div class="box-content">
-                <a href="addUser.php" class="btn btn-large btn-success pull-right">Create new user</a>
+                <a href="index.php?c=blog&m=insert" class="btn btn-large btn-success pull-right">Create new </a>
                 <table class="table table-striped">
                     <thead>
                     <tr>
@@ -42,10 +42,11 @@
                             <td><img src="uploads/<?php echo $blogResult->getImage(); ?>" style="width:50px; height:80px;" alt=""></td>
                             <td><?php echo $blogResult->getCreatedAt(); ?></td>
                             <td class="center">
-                                <a class="btn btn-info" href="editBlogPost.php?id=<?php echo $blogResult->getId(); ?>">
+                                <a href="index.php?c=blog&m=blogImages&id=<?php echo $blogResult->getId();?>">Images</a>|
+                                <a class="btn btn-info" href="index.php?c=blog&m=update&id=<?php echo $blogResult->getId(); ?>">
                                     <i class="halflings-icon white edit"></i>
                                 </a>
-                                <a class="btn btn-danger" href="deleteBlog.php?id=<?php echo $blogResult->getId(); ?>">
+                                <a class="btn btn-danger" href="index.php?c=blog&m=delete&id=<?php echo $blogResult->getId(); ?>">
                                     <i class="halflings-icon white trash"></i>
                                 </a>
                             </td>

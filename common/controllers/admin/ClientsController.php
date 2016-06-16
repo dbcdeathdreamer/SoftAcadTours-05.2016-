@@ -51,6 +51,22 @@ class ClientsController extends Controller
 
     public function delete()
     {
+        if(!isset($_GET['id'])) {
+            header('Location: index.php?c=clients');
+            exit(0);
+        }
+
+        $clientsCollection = new ClientsCollection();
+        $client = $clientsCollection->getOne($_GET['id']);
+
+        if(is_null($client->getId())) {
+            header('Location: index.php?c=clients');
+            exit(0);
+        }
+
+        $clientsCollection->delete($client->getId());
+        header('Location: index.php?c=clients');
+        exit(0);
 
     }
 }

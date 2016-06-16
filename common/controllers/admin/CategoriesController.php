@@ -43,7 +43,42 @@ class CategoriesController extends Controller
 
     public function insert()
     {
+        $viewData = array();
 
+        $data = array(
+            'name' => '',
+            'description' => ''
+        );
+
+        $errors = array();
+        if (isset($_POST['submit'])) {
+            if(strlen(trim($_POST['name'])) < 3 || strlen(trim($_POST['name'])) > 255) {
+                $errors['name'] = 'Invalid category name length';
+            }
+            if(strlen(trim($_POST['description'])) < 3 || strlen(trim($_POST['description'])) > 500) {
+                $errors['description'] = 'Invalid category description length';
+            }
+            $data = array(
+                'name' => trim($_POST['name']),
+                'description' => trim($_POST['description']),
+            );
+
+            if (empty($errors)) {
+                $categoriesCollection = new CategoriesCollection();
+                $entity = new CategoryEntity();
+                $entity->init($data);
+
+                $categoriesCollection->save($entity);
+
+                header('Location: index.php?c=categories');
+            }
+
+        }
+
+        $viewData['errors'] =$errors;
+        $viewData['data'] = $data;
+
+        $this->loadView('categories/insert.php', $viewData);
     }
 
     public function update()
@@ -53,6 +88,22 @@ class CategoriesController extends Controller
 
     public function delete()
     {
+        if(!isset($_GET['id'])) {
+            header('Location: index.php?c=categories');
+            die;
+        }
+
+        $categoriesCollection = new CategoriesCollection();
+        $category = $categoriesCollection->getOne($_GET['id']);
+
+        if(is_null($category->getId())) {
+            header('Location: index.php?c=categories');
+            die;
+        }
+
+        $categoriesCollection->delete($category->getId());
+        header('Location: index.php?c=categories');
+        die;
 
     }
 }

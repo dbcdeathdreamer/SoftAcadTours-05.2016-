@@ -6,6 +6,15 @@ class TourImagesCollection extends Collection
     
     public function save(Entity $entity)
     {
-        // TODO: Implement save() method.
+        $data = array(
+            'tours_id' => $entity->getToursId(),
+            'image'      => $entity->getImage(),
+        );
+
+        if ($entity->getId() != null) {
+            $this->update($entity->getId(), $data);
+        } else {
+            $this->insert($data);
+        }
     }
 }

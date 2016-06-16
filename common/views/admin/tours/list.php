@@ -47,7 +47,7 @@
                     <input type="submit" value="Search" />
                 </form>
 
-                <a href="addTour.php" class="btn btn-large btn-success pull-right">Create Tour</a>
+                <a href="index.php?c=tours&m=insert" class="btn btn-large btn-success pull-right">Create Tour</a>
                 <table class="table table-striped">
                     <thead>
                     <tr>
@@ -65,13 +65,12 @@
                             <td><?php echo $tour->getDescription(); ?></td>
                             <td>
                                 <img src="uploads/<?php echo $tour->getImage(); ?>" alt="" style="width:50px; height:80px;">
-
                             </td>
                             <td><?php echo $tour->getCategoryName(); ?></td>
                             <td>
-                                <a href="tourImages.php?id=<?php echo $tour->getId();?>">Images</a>|
-                                <a href="editTour.php?id=<?php echo $tour->getId();?>">Edit</a> |
-                                <a href="deleteTour.php?id=<?php echo $tour->getId(); ?>">DELETE</a>
+                                <a href="index.php?c=tours&m=tourImages&id=<?php echo $tour->getId();?>">Images</a>|
+                                <a href="index.php?c=tours&m=update&id=<?php echo $tour->getId();?>">Edit</a> |
+                                <a href="index.php?c=tours&m=delete&id=<?php echo $tour->getId(); ?>">DELETE</a>
                             </td>
                         </tr>
                     <?php }  ?>

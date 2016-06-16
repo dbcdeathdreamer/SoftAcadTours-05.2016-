@@ -1,48 +1,5 @@
-<?php require_once 'common/header.php';?>
-<?php
-if (!loggedIn()) {
-    header('Location: login.php');
-}
-?>
-
-<?php
-$data = array(
-    'name' => '',
-    'description' => ''
-);
-
-$errors = array();
-if (isset($_POST['submit'])) {
-    if(strlen(trim($_POST['name'])) < 3 || strlen(trim($_POST['name'])) > 255) {
-        $errors['name'] = 'Invalid category name length';
-    }
-    if(strlen(trim($_POST['description'])) < 3 || strlen(trim($_POST['description'])) > 500) {
-        $errors['description'] = 'Invalid category description length';
-    }
-    $data = array(
-        'name' => trim($_POST['name']),
-        'description' => trim($_POST['description']),
-    );
-
-    if (empty($errors)) {
-        $categoriesCollection = new CategoriesCollection();
-        $entity = new CategoryEntity();
-        $entity->init($data);
-
-        $categoriesCollection->save($entity);
-
-        header('Location: categoriesListing.php');
-    }
-    
-}
-
-
-?>
-
-
-
-
-<?php require_once 'common/sidebar.php';?>
+<?php require_once __DIR__.'/../../../../admin/common/header.php';?>
+<?php require_once __DIR__.'/../../../../admin/common/sidebar.php';?>
 
 
 <div id="content" class="span10">
@@ -85,4 +42,4 @@ if (isset($_POST['submit'])) {
 
 
 
-<?php require_once 'common/footer.php';?>
+<?php require_once __DIR__.'/../../../../admin/common/footer.php';?>
