@@ -1,7 +1,7 @@
 <?php require_once '/../../../admin/common/header.php'?>
 <?php
 if (!$this->loggedIn()) {
-    header('Location: login.php');
+    header('Location: index.php?c=login');
 }
 ?>
 <?php require_once '/../../../admin/common/sidebar.php'?>
